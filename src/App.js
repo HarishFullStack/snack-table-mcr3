@@ -33,11 +33,11 @@ function App() {
         <table>
           <thead>
             <tr>
-            <th><a href='' onClick={() => dispatch({type: "SORT", value: "product_name"})}>Product Name</a></th>
-            <th><a href='' onClick={() => dispatch({type: "SORT", value: "product_weight"})}>Product Weight</a></th>
-            <th><a href='' onClick={() => dispatch({type: "SORT", value: "price"})}>Price (INR)</a></th>
-            <th><a href='' onClick={() => dispatch({type: "SORT", value: "calories"})}>Calories</a></th>
-            <th><a href='' onClick={() => dispatch({type: "SORT", value: "ingredients"})}>Ingredients</a></th>
+            <th onClick={() => dispatch({type: "SORT", value: "product_name"})}>Product Name</th>
+            <th onClick={() => dispatch({type: "SORT", value: "product_weight"})}>Product Weight</th>
+            <th onClick={() => dispatch({type: "SORT", value: "price"})}>Price (INR)</th>
+            <th onClick={() => dispatch({type: "SORT", value: "calories"})}>Calories</th>
+            <th onClick={() => dispatch({type: "SORT", value: "ingredients"})}>Ingredients</th>
             </tr>
           </thead>
 
