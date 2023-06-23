@@ -15,15 +15,24 @@ function App() {
         else
           {
             
-            const result1 = snacks.filter((x) => x.product_name.toLowerCase().includes(action.value.toLowerCase()));
-            const result2 = snacks.filter((x) => x.ingredients.toString().toLowerCase().includes(action.value.toLowerCase()));
-            const result1Ids = result1.map((x) => x.id);
-            const finalResult2 = result2.filter((x) => !result1Ids.includes(x.id));
+            const productNameMatch = snacks.filter((x) => x.product_name.toLowerCase().includes(action.value.toLowerCase()));
+            const ingredientsMatch = snacks.filter((x) => x.ingredients.toString().toLowerCase().includes(action.value.toLowerCase()));
+            const productNameMatchIds = productNameMatch.map((x) => x.id);
+            const uniqueIngredientsMatch = ingredientsMatch.filter((x) => !productNameMatchIds.includes(x.id));
 
-            return {...state, searchText: action.value, snacksList: ([...result1, ...finalResult2])}}
+            return {...state, searchText: action.value, snacksList: ([...productNameMatch, ...uniqueIngredientsMatch])}}
 
       case "SORT":
-          return {...state, snacksList: state.snacksList.sort((a,b) => a.action.value - b.action.value)}
+          if(action.value === "product_name")
+            return {...state, snacksList: state.snacksList.sort((a,b) => a.product_name > b.product_name ? -1 : a.product_name < b.product_name ? 1 : 0)}
+          if(action.value === "product_weight")
+            return {...state, snacksList: state.snacksList.sort((a,b) => a.product_weight > b.product_weight ? -1 : a.product_weight < b.product_weight ? 1 : 0)}
+          if(action.value === "price")
+            return {...state, snacksList: state.snacksList.sort((a,b) => a.price > b.price ? -1 : a.price < b.price ? 1 : 0)}
+          if(action.value === "calories")
+            return {...state, snacksList: state.snacksList.sort((a,b) => a.calories > b.calories ? -1 : a.calories < b.calories ? 1 : 0)}
+          if(action.value === "product_name")
+            return {...state, snacksList: state.snacksList.sort((a,b) => a.ingredients.toString() > b.ingredients.toString() ? -1 : a.ingredients.toString() < b.ingredients.toString() ? 1 : 0)}
 
       default:
         return state;
