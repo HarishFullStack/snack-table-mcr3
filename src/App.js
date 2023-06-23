@@ -10,9 +10,17 @@ function App() {
       case "SEARCH":
         console.log(action.value)
         if(action.value === "")
-          return {...state, snacksList: snacks}
+          {const result = snacks;
+          return {...state, snacksList: result}}
         else
-          return {...state, searchText: action.value, snacksList: ([...snacks.filter((x) => x.product_name.toLowerCase().includes(action.value.toLowerCase())), ...snacks.filter((x) => x.ingredients.toString().toLowerCase().includes(action.value.toLowerCase()))])}
+          {
+            
+            const result1 = snacks.filter((x) => x.product_name.toLowerCase().includes(action.value.toLowerCase()));
+            const result2 = snacks.filter((x) => x.ingredients.toString().toLowerCase().includes(action.value.toLowerCase()));
+            const result1Ids = result1.map((x) => x.id);
+            const finalResult2 = result2.filter((x) => !result1Ids.includes(x.id));
+
+            return {...state, searchText: action.value, snacksList: ([...result1, ...finalResult2])}}
 
       case "SORT":
           return {...state, snacksList: state.snacksList.sort((a,b) => a.action.value - b.action.value)}
@@ -42,11 +50,11 @@ function App() {
           </thead>
 
             <tbody>
-            {state.snacksList.map((x) => {
-              return(
-                <tr key={x.id}><td>{x.product_name}</td><td>{x.product_weight}</td><td>{x.price}</td><td>{x.calories}</td><td>{x.ingredients.toString()}</td></tr>
-              )
-            })}
+              {state.snacksList.length > 0 && state.snacksList.map((x) => {
+                return(
+                  <tr key={x.id}><td>{x.product_name}</td><td>{x.product_weight}</td><td>{x.price}</td><td>{x.calories}</td><td>{x.ingredients.toString()}</td></tr>
+                )
+              })}
             </tbody>
         </table>
     </div>

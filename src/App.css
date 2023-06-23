@@ -41,6 +41,8 @@ table, th, td{
 th{
   text-align: center;
   text-decoration: underline;
+  cursor: pointer;
+  color: blue;
 }
 
 input{
